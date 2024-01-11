@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = { "http://localhost:5173" }, maxAge = 3600)@RestController
+@CrossOrigin()@RestController
 @RequestMapping("/api/windows")
 @Transactional
 public class WindowController {
