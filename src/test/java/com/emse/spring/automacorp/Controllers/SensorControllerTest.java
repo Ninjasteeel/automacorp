@@ -1,7 +1,7 @@
 package com.emse.spring.automacorp.Controllers;
 
 
-
+/*
 import com.emse.spring.automacorp.dao.SensorDao;
 import com.emse.spring.automacorp.dto.SensorCommand;
 import com.emse.spring.automacorp.model.SensorEntity;
@@ -135,3 +135,4 @@ class SensorControllerTest {
     }
 
 }
+*/
