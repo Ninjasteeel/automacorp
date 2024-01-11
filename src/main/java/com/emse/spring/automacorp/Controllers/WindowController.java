@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin()@RestController
+@CrossOrigin()
+@RestController
 @RequestMapping("/api/windows")
 @Transactional
 public class WindowController {
