@@ -1,17 +1,14 @@
-import org.gradle.api.JavaVersion
-
 plugins {
 	java
-	id("org.springframework.boot") version "3.1.4"
-	id("io.spring.dependency-management") version "1.1.3"
-	kotlin("jvm") version "1.9.20"
-
+	id("org.springframework.boot") version "3.2.1"
+	id("io.spring.dependency-management") version "1.1.4"
 }
 
 group = "com.emse.spring"
 version = "0.0.1-SNAPSHOT"
 
 java {
+	sourceCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -19,23 +16,17 @@ repositories {
 }
 
 dependencies {
-	//testImplementation("org.springframework.security:spring-security-test")
-
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa") // libs to use JPA in your project
-	implementation("com.h2database:h2") // libs to use a H2 database
-	//testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("com.h2database:h2")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
-	//implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation(kotlin("stdlib-jdk8"))
-	implementation("org.apache.logging.log4j:log4j-api:2.20.0")
-	implementation("org.apache.logging.log4j:log4j-core:2.20.0")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	testImplementation("org.springframework.security:spring-security-test")
+	testImplementation("org.testng:testng:7.1.0")
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
-}
-kotlin {
-	jvmToolchain(17)
 }

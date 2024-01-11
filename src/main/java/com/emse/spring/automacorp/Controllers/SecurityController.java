@@ -1,5 +1,5 @@
 package com.emse.spring.automacorp.Controllers;
-/*
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,22 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-@CrossOrigin(origins = { "http://localhost:5173" }, maxAge = 3600)
+@CrossOrigin
 @RestController
 @RequestMapping("/api/admin/users")
 public class SecurityController {
-    private static Logger logger = LogManager.getLogger(SecurityController.class);
-    public record User(String username) {}
 
+    public record User(String username) {
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(path = "/me")
     public User findUserName(@AuthenticationPrincipal UserDetails userDetails) {
         return new User(userDetails.getUsername());
     }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(path = "/api/admin/users/admin-only")
-    public String adminOnlyEndpoint() {
-        return "Accessible only to Admin";
-    }
 }
-*/

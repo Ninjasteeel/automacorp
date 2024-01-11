@@ -19,6 +19,10 @@ public class WindowEntity {
         this.room = room;
     }
 
+    public RoomEntity getRoom() {
+        return room;
+    }
+
     @ManyToOne
     private RoomEntity room;
 
