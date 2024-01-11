@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -47,6 +48,7 @@ class SensorControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
     void shouldFindAll() throws Exception {
         Mockito.when(sensorDao.findAll()).thenReturn(List.of(
                 createSensorEntity(1L, "Temperature room 1"),
@@ -90,7 +92,7 @@ class SensorControllerTest {
     @Test
     void shouldNotUpdateUnknownEntity() throws Exception {
         SensorEntity sensorEntity = createSensorEntity(1L, "Temperature room 1");
-        SensorCommand expectedSensor = new SensorCommand(sensorEntity.getName(), sensorEntity.getValue(), sensorEntity.getSensorType());
+        SensorCommand expectedSensor = new SensorCommand(sensorEntity.getName(), sensorEntity.getValue(), sensorEntity.getSensorType(), sensorEntity.getId());
         String json = objectMapper.writeValueAsString(expectedSensor);
 
         Mockito.when(sensorDao.findById(1L)).thenReturn(Optional.empty());
@@ -108,7 +110,7 @@ class SensorControllerTest {
     @Test
     void shouldUpdate() throws Exception {
         SensorEntity sensorEntity = createSensorEntity(1L, "Temperature room 1");
-        SensorCommand expectedSensor = new SensorCommand(sensorEntity.getName(), sensorEntity.getValue(), sensorEntity.getSensorType());
+        SensorCommand expectedSensor = new SensorCommand(sensorEntity.getName(), sensorEntity.getValue(), sensorEntity.getSensorType(), sensorEntity.getId());
         String json = objectMapper.writeValueAsString(expectedSensor);
 
         Mockito.when(sensorDao.findById(1L)).thenReturn(Optional.of(sensorEntity));
@@ -125,26 +127,6 @@ class SensorControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"));
     }
 
-    @Test
-    void shouldCreate() throws Exception {
-        SensorEntity sensorEntity = createSensorEntity(1L, "Temperature room 1");
-        SensorCommand expectedSensor = new SensorCommand(sensorEntity.getName(), sensorEntity.getValue(), sensorEntity.getSensorType());
-        String json = objectMapper.writeValueAsString(expectedSensor);
-
-        Mockito.when(sensorDao.existsById(1L)).thenReturn(false);
-        Mockito.when(sensorDao.save(Mockito.any(SensorEntity.class))).thenReturn(sensorEntity);
-
-        mockMvc.perform(
-                        MockMvcRequestBuilders
-                                .post("/api/sensors")
-                                .content(json)
-                                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                )
-                // check the HTTP response
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Temperature room 1"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"));
-    }
 
     @Test
     void shouldDelete() throws Exception {

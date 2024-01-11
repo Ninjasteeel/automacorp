@@ -12,8 +12,12 @@ public class WindowEntity {
     @Column(nullable=false, length=255) // (4)
     private String name;
 
-    @OneToOne// (5)
+    @OneToOne(cascade = CascadeType.ALL)
     private SensorEntity windowStatus;
+
+    public void setRoom(RoomEntity room) {
+        this.room = room;
+    }
 
     @ManyToOne
     private RoomEntity room;
