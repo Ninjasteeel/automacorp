@@ -19,10 +19,16 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {
+        RequestMethod.GET,
+        RequestMethod.POST,
+        RequestMethod.DELETE,
+        RequestMethod.PUT
+})
 @RestController
 @RequestMapping("/api/rooms")
 @Transactional
+
 public class RoomController {
 
     private final RoomDao roomDao;

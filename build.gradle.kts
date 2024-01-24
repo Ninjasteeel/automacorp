@@ -25,6 +25,18 @@ dependencies {
 	testImplementation("org.testng:testng:7.1.0")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation(platform("software.amazon.awssdk:bom:2.20.56"))
+	implementation("software.amazon.awssdk:s3")
+	implementation("software.amazon.awssdk:sso")
+	implementation("software.amazon.awssdk:ssooidc")
+	implementation(platform("org.apache.logging.log4j:log4j-bom:2.20.0"))
+	implementation("org.apache.logging.log4j:log4j-1.2-api")
+	testImplementation(platform("org.junit:junit-bom:5.10.0"))
+	testImplementation("org.junit.jupiter:junit-jupiter")
+	implementation ("software.amazon.awssdk:regions")
+	implementation ("software.amazon.awssdk:s3")
+	implementation ("software.amazon.awssdk:sqs")
+	implementation ("software.amazon.awssdk:sns")
 }
 
 tasks.withType<Test> {

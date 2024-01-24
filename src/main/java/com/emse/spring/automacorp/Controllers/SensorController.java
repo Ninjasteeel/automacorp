@@ -25,8 +25,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = { "http://localhost:5173" }, maxAge = 3600)
-@RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {
+        RequestMethod.GET,
+        RequestMethod.POST,
+        RequestMethod.DELETE,
+        RequestMethod.PUT
+})@RestController
 @RequestMapping("/api/sensors")
 @Transactional
 public class SensorController {
